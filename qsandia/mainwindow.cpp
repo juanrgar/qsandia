@@ -3,6 +3,23 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
+    this->setPositionToScreenCenter();
+    this->setWindowTitle( "QSandia" );
+
+    this->createActions();
+    this->configureToolBar();
+
+    this->createFileSystemView();
+    this->configureFileSystemViewAppearance();
+}
+
+MainWindow::~MainWindow()
+{
+}
+
+void
+MainWindow::setPositionToScreenCenter(void)
+{
     QDesktopWidget *desktop = QApplication::desktop();
 
     int screenWidth = desktop->width();
@@ -13,16 +30,38 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->resize( MainWindow::initialWidth, MainWindow::initialHeight );
     this->move( screenCenterX, screenCenterY );
-    this->setWindowTitle( "QSandia" );
+}
 
-    this->fileSystemModel = new FileSystem( this );
-
-    this->fileSystemView = new QListView( this );
-    this->fileSystemView->setModel( this->fileSystemModel );
-
+void
+MainWindow::createFileSystemView(void)
+{
+    this->fileSystemView = new QTableView( this );
     this->setCentralWidget( this->fileSystemView );
 }
 
-MainWindow::~MainWindow()
+void
+MainWindow::configureFileSystemViewAppearance(void)
+{
+    this->fileSystemView->verticalHeader()->hide();
+    this->fileSystemView->horizontalHeader()->setStretchLastSection( true );
+}
+
+void
+MainWindow::createActions(void)
+{
+    this->goHomeAction = new QAction(QIcon::fromTheme("go-home"), tr("&Home"), this);
+    this->goHomeAction->setStatusTip( tr("Display HOME contents") );
+    connect( this->goHomeAction, SIGNAL(triggered()), this, SLOT(onGoHome()) );
+}
+
+void
+MainWindow::configureToolBar(void)
+{
+    QToolBar *addressToolBar = this->addToolBar( tr("Address") );
+    addressToolBar->addAction( goHomeAction );
+}
+
+void
+MainWindow::onGoHome(void)
 {
 }

@@ -2,10 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QListView>
+#include <QTableView>
 #include <QApplication>
 #include <QDesktopWidget>
-#include "filesystem.h"
+#include <QHeaderView>
+#include <QToolBar>
+#include <QAction>
+#include <QIcon>
 
 class MainWindow : public QMainWindow
 {
@@ -15,9 +18,19 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void onGoHome(void);
+
 private:
-    FileSystem *fileSystemModel;
-    QListView *fileSystemView;
+    void setPositionToScreenCenter(void);
+    void createFileSystemView(void);
+    void configureFileSystemViewAppearance(void);
+    void createActions(void);
+    void configureToolBar(void);
+
+    QTableView *fileSystemView;
+    QAction *goHomeAction;
+    QAction *refreshAction;
 
     static const int initialWidth = 800;
     static const int initialHeight = 600;
