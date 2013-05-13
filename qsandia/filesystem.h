@@ -2,6 +2,8 @@
 #define FILESYSTEM_H
 
 #include <QAbstractTableModel>
+#include <QModelIndex>
+#include <QDir>
 
 class FileSystem : public QAbstractTableModel
 {
@@ -18,7 +20,9 @@ signals:
 public slots:
 
 private:
-    QString currentWorkingDirectory;
+    QDir currentWorkingDirectory;
+
+    const static int numberOfColumns = 2;
     
 };
 

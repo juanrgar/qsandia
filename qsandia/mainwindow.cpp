@@ -44,6 +44,7 @@ MainWindow::configureFileSystemViewAppearance(void)
 {
     this->fileSystemView->verticalHeader()->hide();
     this->fileSystemView->horizontalHeader()->setStretchLastSection( true );
+    this->fileSystemView->setSelectionBehavior( QAbstractItemView::SelectRows );
 }
 
 void
