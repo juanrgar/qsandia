@@ -18,8 +18,11 @@ public:
 signals:
     
 public slots:
+    void onRowDoubleClicked(const QModelIndex& index);
 
 private:
+    void changeDirectory( const QString& dirName );
+
     QDir currentWorkingDirectory;
 
     const static int numberOfColumns = 2;

@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     this->setPositionToScreenCenter();
     this->setWindowTitle( "QSandia" );
+    this->setUnifiedTitleAndToolBarOnMac( true );
 
     this->createActions();
     this->configureToolBar();
@@ -45,6 +46,7 @@ MainWindow::configureFileSystemViewAppearance(void)
     this->fileSystemView->verticalHeader()->hide();
     this->fileSystemView->horizontalHeader()->setStretchLastSection( true );
     this->fileSystemView->setSelectionBehavior( QAbstractItemView::SelectRows );
+    this->fileSystemView->setSelectionMode( QAbstractItemView::SingleSelection );
 }
 
 void

@@ -12,5 +12,13 @@ Controller::Controller(QObject *parent) :
 void
 Controller::init(void)
 {
+    this->connectViewModel();
     this->mainWindow->show();
+}
+
+void
+Controller::connectViewModel(void)
+{
+    connect( this->fileSystemView, SIGNAL(doubleClicked(const QModelIndex&)),
+             this->fileSystemModel, SLOT(onRowDoubleClicked(const QModelIndex&)) );
 }

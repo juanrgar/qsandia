@@ -18,6 +18,8 @@ signals:
 public slots:
 
 private:
+    void connectViewModel(void);
+
     MainWindow *mainWindow;
     QTableView *fileSystemView;
     FileSystem *fileSystemModel;
