@@ -9,6 +9,9 @@
 #include <QToolBar>
 #include <QAction>
 #include <QIcon>
+#include "controller.h"
+
+class Controller;
 
 class MainWindow : public QMainWindow
 {
@@ -17,20 +20,24 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void init(void);
+    void setWindowController(Controller *controller);
+    void connectActions(void);
+
+signals:
+    void changeDirectory(QString dirName);
 
 private slots:
-    void onGoHome(void);
 
 private:
     void setPositionToScreenCenter(void);
-    void createFileSystemView(void);
     void configureFileSystemViewAppearance(void);
     void createActions(void);
     void configureToolBar(void);
 
-    QTableView *fileSystemView;
+    Controller *controller;
     QAction *goHomeAction;
-    QAction *refreshAction;
+    QAction *goUpAction;
 
     static const int initialWidth = 800;
     static const int initialHeight = 600;

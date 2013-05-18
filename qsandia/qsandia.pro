@@ -20,3 +20,6 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     filesystem.h \
     controller.h
+
+RESOURCES += \
+    resources.qrc

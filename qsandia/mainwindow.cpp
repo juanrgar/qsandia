@@ -3,19 +3,27 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
+}
+
+MainWindow::~MainWindow()
+{
+}
+
+void
+MainWindow::init(void)
+{
     this->setPositionToScreenCenter();
     this->setWindowTitle( "QSandia" );
     this->setUnifiedTitleAndToolBarOnMac( true );
 
     this->createActions();
     this->configureToolBar();
-
-    this->createFileSystemView();
-    this->configureFileSystemViewAppearance();
 }
 
-MainWindow::~MainWindow()
+void
+MainWindow::setWindowController(Controller *controller)
 {
+    this->controller = controller;
 }
 
 void
@@ -33,28 +41,22 @@ MainWindow::setPositionToScreenCenter(void)
     this->move( screenCenterX, screenCenterY );
 }
 
-void
-MainWindow::createFileSystemView(void)
-{
-    this->fileSystemView = new QTableView( this );
-    this->setCentralWidget( this->fileSystemView );
-}
-
-void
-MainWindow::configureFileSystemViewAppearance(void)
-{
-    this->fileSystemView->verticalHeader()->hide();
-    this->fileSystemView->horizontalHeader()->setStretchLastSection( true );
-    this->fileSystemView->setSelectionBehavior( QAbstractItemView::SelectRows );
-    this->fileSystemView->setSelectionMode( QAbstractItemView::SingleSelection );
-}
 
 void
 MainWindow::createActions(void)
 {
-    this->goHomeAction = new QAction(QIcon::fromTheme("go-home"), tr("&Home"), this);
+    this->goHomeAction = new QAction( QIcon(":/icons/go-home.png"), tr("&Home"), this );
     this->goHomeAction->setStatusTip( tr("Display HOME contents") );
-    connect( this->goHomeAction, SIGNAL(triggered()), this, SLOT(onGoHome()) );
+
+    this->goUpAction = new QAction( QIcon(":/icons/go-up.png"), tr("&Up"), this );
+    this->goHomeAction->setStatusTip( tr("Go one level up") );
+}
+
+void
+MainWindow::connectActions(void)
+{
+    connect( this->goHomeAction, SIGNAL(triggered()), this->controller, SLOT(onGoHome()) );
+    connect( this->goUpAction, SIGNAL(triggered()), this->controller, SLOT(onGoUp()) );
 }
 
 void
@@ -62,9 +64,5 @@ MainWindow::configureToolBar(void)
 {
     QToolBar *addressToolBar = this->addToolBar( tr("Address") );
     addressToolBar->addAction( goHomeAction );
-}
-
-void
-MainWindow::onGoHome(void)
-{
+    addressToolBar->addAction( goUpAction );
 }

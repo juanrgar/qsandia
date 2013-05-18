@@ -3,8 +3,11 @@
 
 #include <QObject>
 #include "mainwindow.h"
-#include "filesystem.h"
 #include <QTableView>
+#include <QFileSystemModel>
+#include <QDebug>
+
+class MainWindow;
 
 class Controller : public QObject
 {
@@ -16,13 +19,19 @@ public:
 signals:
     
 public slots:
+    void onGoHome(void);
+    void onGoUp(void);
+    void onRowDoubleClicked(const QModelIndex&);
+    void onChangeDirectory(QString);
 
 private:
     void connectViewModel(void);
+    void changeDirectory(QString);
+    void configureFileSystemViewAppearance(void);
 
     MainWindow *mainWindow;
     QTableView *fileSystemView;
-    FileSystem *fileSystemModel;
+    QFileSystemModel *fileSystemModel;
 };
 
 #endif // CONTROLLER_H
