@@ -3,6 +3,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
+    this->pathLine = new QLineEdit( this );
 }
 
 MainWindow::~MainWindow()
@@ -62,7 +63,15 @@ MainWindow::connectActions(void)
 void
 MainWindow::configureToolBar(void)
 {
-    QToolBar *addressToolBar = this->addToolBar( tr("Address") );
+    QToolBar *addressToolBar = this->addToolBar( tr("Address tool bar") );
     addressToolBar->addAction( goHomeAction );
     addressToolBar->addAction( goUpAction );
+
+    addressToolBar->addWidget( this->pathLine );
+}
+
+void
+MainWindow::setCurrentDirectory(QString& dirPath)
+{
+    this->pathLine->setText( dirPath );
 }

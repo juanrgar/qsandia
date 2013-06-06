@@ -14,6 +14,7 @@ class Controller : public QObject
     Q_OBJECT
 public:
     explicit Controller(QObject *parent = 0);
+    virtual ~Controller(void);
     void init(void);
     
 signals:
@@ -26,7 +27,8 @@ public slots:
 
 private:
     void connectViewModel(void);
-    void changeDirectory(QString);
+    void changeDirectoryPath(QString);
+    void changeDirectoryIndex(const QModelIndex&);
     void configureFileSystemViewAppearance(void);
 
     MainWindow *mainWindow;

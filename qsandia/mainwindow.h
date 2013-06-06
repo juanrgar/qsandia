@@ -8,6 +8,7 @@
 #include <QHeaderView>
 #include <QToolBar>
 #include <QAction>
+#include <QLineEdit>
 #include <QIcon>
 #include "controller.h"
 
@@ -23,6 +24,7 @@ public:
     void init(void);
     void setWindowController(Controller *controller);
     void connectActions(void);
+    void setCurrentDirectory(QString& dirPath);
 
 signals:
     void changeDirectory(QString dirName);
@@ -38,6 +40,8 @@ private:
     Controller *controller;
     QAction *goHomeAction;
     QAction *goUpAction;
+
+    QLineEdit *pathLine;
 
     static const int initialWidth = 800;
     static const int initialHeight = 600;
